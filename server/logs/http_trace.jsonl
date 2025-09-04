@@ -16,3 +16,6 @@
 {"ts":"2025-09-04T15:16:10.584Z","url":"https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=30&interval=daily","coin":"solana","vs":"usd","days":"30","status":200,"duration_ms":304}
 {"ts":"2025-09-04T15:16:14.747Z","url":"https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=90&interval=daily","coin":"solana","vs":"usd","days":"90","status":429,"duration_ms":77}
 {"ts":"2025-09-04T15:16:25.994Z","url":"https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=365&interval=daily","coin":"solana","vs":"usd","days":"365","status":429,"duration_ms":99}
+{"ts":"2025-09-04T15:17:14.836Z","url":"https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily","coin":"bitcoin","vs":"usd","days":"365","status":200,"duration_ms":216}
+{"ts":"2025-09-04T15:23:07.138Z","url":"https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily","coin":"bitcoin","vs":"usd","days":"30","status":200,"duration_ms":157}
+{"ts":"2025-09-04T15:28:52.899Z","url":"https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=90&interval=daily","coin":"bitcoin","vs":"usd","days":"90","status":200,"duration_ms":170}
