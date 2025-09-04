@@ -46,8 +46,33 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(data, { status: res.status });
   } catch (err: unknown) {
-    const message =
-      err instanceof Error ? err.message : "Proxy error";
+    const message = err instanceof Error ? err.message : "Proxy error";
+
+    try {
+      const logDir = path.join(process.cwd(), "server", "logs");
+      fs.mkdirSync(logDir, { recursive: true });
+      const traceFile = path.join(logDir, "http_trace.jsonl");
+      const errorEntry = {
+        ts: new Date().toISOString(),
+        url,
+        coin,
+        vs,
+        days,
+        status: 500,
+        duration_ms: Date.now() - start,
+        error: message,
+      };
+      fs.appendFileSync(traceFile, JSON.stringify(errorEntry) + "\n");
+
+      if (WEBHOOK_URL) {
+        fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(errorEntry),
+        }).catch(() => {});
+      }
+    } catch {
+    }
 
     return NextResponse.json({ error: message }, { status: 500 });
   }

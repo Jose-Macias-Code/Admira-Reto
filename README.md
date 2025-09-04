@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Admira — Reto
 
-## Getting Started
+## 📡 Fuente / API elegida y endpoints
+- **Fuente:** [CoinGecko API](https://www.coingecko.com/en/api)  
+- **Endpoint principal:**  
+/coins/{coin}/market_chart?vs_currency={vs}&days={days}&interval=daily
 
-First, run the development server:
+- **Endpoint local de respaldo:**  
+/api/mock
 
-```bash
+---
+
+## 🚀 Cómo correr
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Variables de entorno utilizadas
+- *WEBHOOK_URL*=<url de webhook>
+- *COINGECKO_BASE*=https://api.coingecko.com/api/v3
+- *DEFAULT_VS_CURRENCY*=usd
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧮 Transformaciones implementadas
+Agregación temporal diaria (toDaily)
+Normaliza los timestamps a un valor por día.
 
-To learn more about Next.js, take a look at the following resources:
+% de cambio diario (withPctChange)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+pctChange_i = ((value_i - value_{i-1}) / value_{i-1}) * 100
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Media móvil 7 días (withSMA)
+Promedio móvil simple con ventana de 7 puntos.
 
-## Deploy on Vercel
+--- 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚖️ Decisiones de diseño y trade-offs
+Todas las llamadas pasan por /api/proxy para:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Centralizar requests,
+- Registrar trazas en server/logs/http_trace.jsonl,
+- Enviar datos al WEBHOOK_URL.
+
+Se incluyó /api/mock como fallback frente a errores o límites de CoinGecko.
+
+Recharts se eligió para tener gráficos de línea, barra y pie en un solo stack.
+
+--- 
+
+## 🤖 Declaración de uso de IA
+Se usó IA únicamente para:
+
+- Investigación de la API de CoinGecko.
+- Apoyo en la creación de datos falsos del endpoint /api/mock.
+- Apoyo en la creación de README.md.
